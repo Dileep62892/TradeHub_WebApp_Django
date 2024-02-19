@@ -7,7 +7,7 @@
 Icon
 
 #Virtual Env
-venv/
+mythenv/
 
 #Media Files
 src/media/
