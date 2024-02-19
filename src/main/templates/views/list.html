@@ -1,0 +1,85 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block 'body' %}
+  <main>
+    <div class="container-fluid text-center py-5">
+        <div class="container px-4 py-5" id="hanging-icons">
+            <div class="text-center" style="margin-bottom:25px">
+                <h2 class="mb-3 border-bottom" style="color: black">List</h2>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data" style="font-weight: bold; color: black;">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        {{listing_form|crispy}}
+                    </div>
+                    <div class="col-6">
+                        {{location_form|crispy}}
+                    </div>
+                </div>
+                <button class="btn btn-primary my-2" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+  </main>
+  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var brandDropdown = document.getElementById("id_brand");
+      var brandManualTextbox = document.getElementById("id_brand_manual");
+      var cityDropdown = document.getElementById("id_city");
+      var cityManualTextbox = document.getElementById("id_city_manual");
+  
+      brandDropdown.addEventListener("change", function() {
+        if (brandDropdown.value === "other") {
+          brandManualTextbox.style.display = "block";
+          brandManualTextbox.readOnly = false;
+          brandManualTextbox.value = "";  // Clear the textbox value
+        } else {
+          brandManualTextbox.style.display = "block";
+          brandManualTextbox.value = "NA";
+          brandManualTextbox.readOnly = true;
+        }
+      });
+  
+      // Initialize the visibility based on the initial value
+      if (brandDropdown.value === "other") {
+        brandManualTextbox.style.display = "block";
+        brandManualTextbox.readOnly = false;
+        brandManualTextbox.value = "";  // Clear the textbox value
+      } else {
+        brandManualTextbox.style.display = "block";
+        brandManualTextbox.value = "NA";
+        brandManualTextbox.readOnly = true;
+      }
+
+    cityDropdown.addEventListener("change", function() {
+        if (cityDropdown.value === "other") {
+          cityManualTextbox.style.display = "block";
+          cityManualTextbox.readOnly = false;
+          cityManualTextbox.value = "";  // Clear the textbox value
+        } else {
+          cityManualTextbox.style.display = "block";
+          cityManualTextbox.value = "NA";
+          cityManualTextbox.readOnly = true;
+        }
+      });
+  
+      // Initialize the visibility based on the initial value
+      if (cityDropdown.value === "other") {
+        cityManualTextbox.style.display = "block";
+        cityManualTextbox.readOnly = false;
+        cityManualTextbox.value = "";  // Clear the textbox value
+      } else {
+        cityManualTextbox.style.display = "block";
+        cityManualTextbox.value = "NA";
+        cityManualTextbox.readOnly = true;
+      }
+    });
+  </script>
+
+{% endblock %}

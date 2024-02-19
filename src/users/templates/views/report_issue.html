@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block 'body' %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="text-center">
+                <h2 class="mt-3 mb-3 border-bottom" style="color:black;">Report Issue</h2>
+                <form method="post" action="{% url 'report_user' reported_user_id=reported_user_id %}" style="font-weight:bold; color:black;">
+                    {% csrf_token %}
+                    <input type="hidden" name="reported_user" value="{{ reported_user_id }}">
+                    {{form.reason|as_crispy_field}}
+                    
+                    <br>
+                    <a href="{% url 'home' %}">
+                        <button class="btn btn-sm btn-primary" type="submit">Report this user</button>
+                    </a>
+                    <br>
+                    <a href="{% url 'home' %}" class="btn btn-sm btn-secondary"> 
+                        <button class="btn btn-sm btn-primary" type="submit">Cancel</button>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    textarea.form-control {
+        border: 1px solid black; 
+    }
+</style>
+{% endblock %}
+
+{% block 'footer' %}
+{% endblock %}

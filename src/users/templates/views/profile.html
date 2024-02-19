@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block 'body' %}
+
+<main>
+<div class="container-fluid text-center py-3">
+    <div class="container px-3 py-3 mt-3 text-center">
+        <div class="mb-3">
+            <h2 class="mb-3 border-bottom" style="color: black">Profile</h2>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data" style="font-weight: bold; color: black;">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ user_form|crispy }}
+                    {{ profile_form|crispy }}  
+                </div>
+                <div class="col-md-6"> 
+                    {{ location_form|crispy }}
+                </div>
+                
+                <div>
+                    <br>
+                    <button class="btn btn-primary my-2" type="submit">Save</button>
+                </div>    
+            </div>
+        </form>
+    </div>
+    <br>
+   
+    <div class="container px-4">
+        <div class="text-center" style="margin-bottom:25px">
+            <h2 class="mb-3 border-bottom" style="color: black">Your Listings</h2>
+        </div>
+        <div class="row flex-row align-items-center g-5 py-5">
+            {% for listing in user_listings %}
+                <div class="col-6">
+                    <div>
+                        <a href={% url 'listing_view' id=listing.id %}>
+                        <img src="{{ listing.image.url }}" class="d-block mx-lg-auto img-fluid" width="300" height="300">
+                        </a>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div>
+                        <p class="text-start display-10 fw mb-3" style="font-weight: bold; color: black;">{{ listing.model }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div class="container px-4">
+        <div class="text-center" style="margin-bottom:25px">
+            <h2 class="mb-3 border-bottom" style="color: black">Liked Listings</h2>
+        </div>
+        <div class="row flex-lg-row align-items-center g-5 py-5">
+            {% for liked_listing in user_liked_listings %}
+                <div class="col-6">
+                    <div>
+                        <a href={% url 'listing_view' id=liked_listing.listing.id %}>
+                        <img src="{{ liked_listing.listing.image.url }}" class="d-block mx-lg-auto img-fluid" width="300" height="300">
+                        </a>
+                        <br>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div>
+                        <p class="text-start display-10 fw mb-3" style="font-weight: bold; color: black;">{{ liked_listing.listing.model }}</p>
+                        <p class="text-start display-10 fw mb-3" style="font-weight: bold; color: black;">Liked on {{ liked_listing.like_date }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div> 
+    </div>
+    <br>
+    <div class="container px-4">
+        <div class="text-center" style="margin-bottom:25px">
+            <h2 class="mb-2 border-bottom" style="color: black">Delete User</h2>
+            <a href="{% url 'delete_user_confirmation' id=user.id %}">
+                <button id="DeleteUserConfirm" class="btn btn-primary my-2" type="submit">Delete</button>
+            </a>
+        </div>
+    </div>
+</div>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var cityDropdown = document.getElementById("id_city");
+      var cityManualTextbox = document.getElementById("id_city_manual");
+    
+      cityDropdown.addEventListener("change", function() {
+        if (cityDropdown.value === "other") {
+          cityManualTextbox.style.display = "block";
+          cityManualTextbox.readOnly = false;
+          
+        } else {
+          cityManualTextbox.style.display = "block";
+          cityManualTextbox.value = "NA";
+          cityManualTextbox.readOnly = true;
+        }
+      });
+  
+      // Initialize the visibility based on the initial value
+      if (cityDropdown.value === "other") {
+        cityManualTextbox.style.display = "block";
+        cityManualTextbox.readOnly = false;
+        
+      } else {
+        cityManualTextbox.style.display = "block";
+        cityManualTextbox.value = "NA";
+        cityManualTextbox.readOnly = true;
+      }
+    });
+  </script>
+{% endblock %}

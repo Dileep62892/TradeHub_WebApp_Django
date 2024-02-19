@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block 'title' %}
+    <title>TradeHub . Home!</title>
+{% endblock %}
+
+{% block 'body' %}
+    <div class="py-5 container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-dark">TradeHub</h1>
+                <p class="lead" style="color: black;">The best place to buy or sell modern enthusiast cars, and we've
+                    made it that much easier.</p>
+                <a href="{% url 'list' %}" class="btn btn-primary my-2">List Your Car</a>
+            </div>
+
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <div class="form-signin">
+                    <!--Listing filter-->
+                    <form method="get" style="font-weight: bold; color:black;">
+                        {{ listing_filter.form|crispy }}
+                        <br>
+                        <button class="btn btn-sm btn-primary my-2" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="album py-5" style="background-color: #FCFAF6;">
+        <div class="container">
+            {% if listing_filter.qs %}
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    {% for listing in listing_filter.qs %}
+                        <div class="col d-flex">
+                            {% include "components/listing-card.html" %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col">
+                        <h2 style="color: black; text-align: center;">Results not found.</p>   
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
