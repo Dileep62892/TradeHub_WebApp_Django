@@ -12,6 +12,9 @@ mythenv/
 #Media Files
 src/media/
 
+#env File
+src/TradeHub/.env
+
 # Thumbnails
 ._*
 
@@ -37,7 +40,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-.env
 env/
 build/
 develop-eggs/
@@ -90,4 +92,4 @@ __pycache__/
 local_settings.py
 
 .env
-db.sqlite3
+src/db.sqlite3
