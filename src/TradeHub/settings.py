@@ -34,10 +34,9 @@ DEBUG = True if env("DJANGOAPPMODE") == "Debug" else False
 print(f"Application running in Debug Mode: {DEBUG}")
 
 ALLOWED_HOSTS = [
-    "tradehub-django-5d392bd40046.herokuapp.com",
-    "127.0.0.1",
-    "localhost",
     "tradehub-webapp-django.onrender.com",
+    "localhost",
+    "127.0.0.1",
 ]
 
 
