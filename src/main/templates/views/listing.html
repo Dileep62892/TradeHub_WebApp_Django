@@ -4,137 +4,138 @@
 <title>TradeHub . {{ listing.model }} Listing</title>
 {% endblock %}
 {% block 'body' %}
-    <main>
-        <section class="container py-5">
-            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                <div class="col-6">
-                    <img src="{{ listing.image.url }}" class="d-block mx-lg-auto img-fluid" width="1920" height="1080">
-                </div>
-                <div class="col-6">
-                    <h1 class="display-5 fw-bold lh-1 mb-3">{{ listing.model }}</h1>
-                    <p class="lead">{{ listing.seller.user.username }} - {{ listing.updated_at }}</p>
-                </div>
+<main>
+    <section class="container py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-6">
+                <img src="{{ listing.image.url }}" class="d-block mx-lg-auto img-fluid" width="1920" height="1080">
             </div>
-        </section>
-        <div class='bg-light'>
-            <div class='container px-4 py-5'>
-                <h1 class='mb-3 border-bottom' style="color:black;">Auto Information</h1>
-                <div class='row row-cols-1 row-cols-md-3 mb-3 text-center'>
-                    <div class='col-lg-8'>
-                        <div class="table-responsive">
-                            <table class="table text-center">
-                                <tbody>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Brand</th>
-                                        {% if listing.brand == 'other' %}
-                                            <td>{{ listing.brand_manual|upper }}</td>
-                                        {% else %}
-                                            <td>{{ listing.brand|upper }}</td>
-                                        {% endif %}
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Vin</th>
-                                        <td>{{ listing.vin }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Mileage</th>
-                                        <td>{{ listing.mileage }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>color</th>
-                                        <td>{{ listing.color }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Engine</th>
-                                        <td>{{ listing.engine }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Transmission</th>
-                                        <td>{{ listing.transmission|capfirst }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope='row' class='text-start'>Transmission</th>
-                                        <td>{{ listing.price }}</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class='col-lg-4'>
-                        <div class="card text-center">
-                            <div class="card-header"><h3 class='mb-0' style='color:black;'>Location</h3></div>
-                            <div class="card-body">
-                                <p class="card-text">
+            <div class="col-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">{{ listing.model }}</h1>
+                <p class="lead">{{ listing.seller.user.username }} - {{ listing.updated_at }}</p>
+            </div>
+        </div>
+    </section>
+    <div class='bg-light'>
+        <div class='container px-4 py-5'>
+            <h1 class='mb-3 border-bottom' style="color:black;">Auto Information</h1>
+            <div class='row row-cols-1 row-cols-md-3 mb-3 text-center'>
+                <div class='col-lg-8'>
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <tbody>
+                                <tr>
+                                    <th scope='row' class='text-start'>Brand</th>
                                     {% if listing.brand == 'other' %}
-                                            <td>{{listing.location.city_manual|capfirst}}</td>
+                                    <td>{{ listing.brand_manual|upper }}</td>
                                     {% else %}
-                                            <td>{{listing.location.city|capfirst}}</td>
-                                    {% endif %}, 
-                                    {{listing.location.state|capfirst}}, {{listing.location.zip_code}}</p>
-                                <p class="card-text">Contact : {{listing.seller.phone_number}}</p>
-                                <button id="sendEmail" class="btn btn-primary my-2">Send Mail</button>
-                            </div>
-                        </div>  
-                        <br>
-                        <!-- Delete Listing -->
-                        {% if listing.seller.user == request.user %}
-                        <div class="card text-center">
-                            <div class="card-header">
-                                <h3 class='mb-0' style='color:black;'>Delete Listing</h3>
-                            </div>
-                            <div class="card-body">
-                                <a href="{% url 'delete_listing_confirmation' id=listing.id %}">
-                                    <button id="DeleteListingConfirm" class="btn btn-primary my-2" type="submit">Delete</button>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
-                        
-                        <!-- Report User -->
-                        {% if listing.seller.user != request.user %}
-                        <div class="card text-center">
-                            <div class="card-header">
-                                <h3 class='mb-0' style='color:black;'>Report User</h3>
-                            </div>
-                            <div class="card-body">
-                                <a href="{% url 'report_user' reported_user_id=listing.seller.user.id %}">
-                                    <button id="ReportUser" class="btn btn-primary my-2" type="submit">Report</button>
-                                </a>
-                            </div>
-                        </div>
-                        {% endif %}
+                                    <td>{{ listing.brand|upper }}</td>
+                                    {% endif %}
+                                </tr>
 
-                                      
+                                <tr>
+                                    <th scope='row' class='text-start'>Mileage</th>
+                                    <td>{{ listing.mileage }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row' class='text-start'>color</th>
+                                    <td>{{ listing.color }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row' class='text-start'>Engine</th>
+                                    <td>{{ listing.engine }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row' class='text-start'>Transmission</th>
+                                    <td>{{ listing.transmission|capfirst }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope='row' class='text-start'>Price</th>
+                                    <td>{{ listing.price }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+                <div class='col-lg-4'>
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h3 class='mb-0' style='color:black;'>Location</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {% if listing.brand == 'other' %}
+                                <td>{{listing.location.city_manual|capfirst}}</td>
+                                {% else %}
+                                <td>{{listing.location.city|capfirst}}</td>
+                                {% endif %},
+                                {{listing.location.state|capfirst}}, {{listing.location.zip_code}}
+                            </p>
+                            <p class="card-text">Contact : {{listing.seller.phone_number}}</p>
+                            <button id="sendEmail" class="btn btn-primary my-2">Send Mail</button>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Delete Listing -->
+                    {% if listing.seller.user == request.user %}
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h3 class='mb-0' style='color:black;'>Delete Listing</h3>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'delete_listing_confirmation' id=listing.id %}">
+                                <button id="DeleteListingConfirm" class="btn btn-primary my-2"
+                                    type="submit">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Report User -->
+                    {% if listing.seller.user != request.user %}
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h3 class='mb-0' style='color:black;'>Report User</h3>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'report_user' reported_user_id=listing.seller.user.id %}">
+                                <button id="ReportUser" class="btn btn-primary my-2" type="submit">Report</button>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>
-        <div>
-            <div class='container px-4 py-5'>
-                <div class='row'>
-                    <div class='col-12'>
-                        <h1 class='mb-3 border-bottom' style="color:black;">Description</h1>
-                        <p>{{listing.description}}</p>
-                    </div>
+    </div>
+    <div>
+        <div class='container px-4 py-5'>
+            <div class='row'>
+                <div class='col-12'>
+                    <h1 class='mb-3 border-bottom' style="color:black;">Description</h1>
+                    <p>{{listing.description}}</p>
                 </div>
             </div>
         </div>
+    </div>
     <main>
-    <script>
-        $("#sendEmail").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "{% url 'inquire_listing' id=listing.id %}",
-                data: { 'csrfmiddlewaretoken': '{{ csrf_token }}' },
-                dataType: "json",
-                success: function (r) {
-                    alert("Email sent successfully!")
-                },
-                error: function (rs, e) {
-                    alert(rs.info)
-                }
-            })
-        });
-    </script>
-{% endblock %}
+        <script>
+            $("#sendEmail").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'inquire_listing' id=listing.id %}",
+                    data: { 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                    dataType: "json",
+                    success: function (r) {
+                        alert("Email sent successfully!")
+                    },
+                    error: function (rs, e) {
+                        alert(rs.info)
+                    }
+                })
+            });
+        </script>
+        {% endblock %}
