@@ -1,2 +1,6 @@
+import uuid
+
+
 def user_listings_path(instance, filename):
-    return 'user_{0}/listings/{1}'.format(instance.seller.user.id, filename)
+    ext = filename.split(".")[-1]
+    return f"user_{instance.seller.user.id}/listings/{uuid.uuid4()}.{ext}"
