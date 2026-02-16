@@ -96,7 +96,9 @@ WSGI_APPLICATION = "TradeHub.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if env("USEDEBUGDB") == "True":
+USE_DEBUG_DB = env("USEDEBUGDB", default="False").lower() == "true"
+
+if USE_DEBUG_DB:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -106,7 +108,7 @@ if env("USEDEBUGDB") == "True":
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "ENGINE": "django.db.backends.postgresql",
             "NAME": env("DBNAME"),
             "USER": env("DBUSER"),
             "PASSWORD": env("DBPASSWORD"),
@@ -114,6 +116,7 @@ else:
             "PORT": env("DBPORT"),
         }
     }
+
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
